@@ -44,6 +44,12 @@ body.previa .pista{top:calc(66px + env(safe-area-inset-top))}
 .volver:active{transform:scale(.97)}
 body.previa .volver{display:inline-flex}
 
+.idioma{position:fixed;top:calc(14px + env(safe-area-inset-top));right:14px;z-index:45;min-width:48px;padding:11px 14px;border:1.5px solid rgba(255,214,90,.7);border-radius:999px;background:rgba(26,20,56,.6);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:var(--oro-claro);font:700 13px/1 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;letter-spacing:.06em;cursor:pointer;transition:background .2s,transform .15s}
+.idioma:hover{background:rgba(26,20,56,.85)}
+.idioma:active{transform:scale(.95)}
+.idioma:focus-visible{outline:2px solid var(--oro-claro);outline-offset:3px}
+@media (min-width:900px){body.editando .idioma{right:calc(440px + 14px)}}
+
 /* ---------- Reproductor ---------- */
 .credito{position:fixed;left:0;right:0;bottom:calc(8px + env(safe-area-inset-bottom));z-index:35;margin:0;text-align:center;font-size:11px;letter-spacing:.04em;color:rgba(255,248,230,.5);pointer-events:none;-webkit-user-select:none;user-select:none}
 body.editando .credito{display:none}
@@ -174,25 +180,26 @@ body.editando .editor{display:flex}
 <script id="datos" type="application/json">{"modo":"editor","de":"","para":"","fotoCentral":"","frases":[{"texto":"❤️ Te amo","foto":"","mensaje":""},{"texto":"🌙 Mi calma","foto":"","mensaje":""},{"texto":"🌻 Mi girasol","foto":"","mensaje":""},{"texto":"🌼 Mi flor amarilla","foto":"","mensaje":""},{"texto":"💌 Recuerdos","foto":"","mensaje":""},{"texto":"🍯 Dulzura","foto":"","mensaje":""}]}</script>
 <script>try{var enlace=/^\/r\/[A-Za-z0-9]{10}\/?$/.test(location.pathname)||/[?&]r=[A-Za-z0-9]{10}(&|$)/.test(location.search);document.body.className=JSON.parse(document.getElementById("datos").textContent).modo==="regalo"||enlace?"regalo":"editando"}catch(e){document.body.className="editando"}</script>
 
-<div id="escena"><canvas id="c" aria-label="Jardín animado de flores amarillas"></canvas></div>
+<div id="escena"><canvas id="c" data-t-al="aria_canvas" aria-label="Jardín animado de flores amarillas"></canvas></div>
 
 <div class="intro" id="intro">
-  <p class="intro-kicker">21 de septiembre · Día de las flores amarillas</p>
-  <h1 class="intro-title">Un jardín para ti</h1>
+  <p class="intro-kicker" data-t="intro_kicker">21 de septiembre · Día de las flores amarillas</p>
+  <h1 class="intro-title" data-t="intro_titulo">Un jardín para ti</h1>
   <div class="etiqueta" id="etiqueta">
-    <p id="linea-para"><span>Para:</span> <strong id="i-para"></strong></p>
-    <p id="linea-de"><span>De:</span> <strong id="i-de"></strong></p>
+    <p id="linea-para"><span data-t="etiqueta_para">Para:</span> <strong id="i-para"></strong></p>
+    <p id="linea-de"><span data-t="etiqueta_de">De:</span> <strong id="i-de"></strong></p>
   </div>
-  <button class="intro-btn" id="abrir" type="button" disabled>Preparando el jardín…</button>
-  <p class="intro-nota" id="nota-volumen" hidden>Súbele el volumen 🎶</p>
+  <button class="intro-btn" id="abrir" type="button" disabled data-t="btn_preparando">Preparando el jardín…</button>
+  <p class="intro-nota" id="nota-volumen" hidden data-t="nota_volumen">Súbele el volumen 🎶</p>
 </div>
 
 <p class="pista" id="pista"></p>
-<button class="volver" id="volver" type="button">← Editar</button>
+<button class="volver" id="volver" type="button" data-t="btn_volver">← Editar</button>
+<button class="idioma" id="idioma" type="button" data-t-al="aria_idioma">EN</button>
 
 <div class="player" id="player">
   <div class="yt-caja" id="yt-caja"><div id="yt"></div></div>
-  <button id="play" type="button" aria-label="Reproducir">
+  <button id="play" type="button" data-t-al="aria_play" aria-label="Reproducir">
     <svg class="ico-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
     <svg class="ico-pausa" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>
   </button>
@@ -200,11 +207,11 @@ body.editando .editor{display:flex}
   <div class="time" id="time">0:00 / 0:00</div>
 </div>
 
-<footer class="credito">Creado por jarlh</footer>
+<footer class="credito" data-t="credito">Creado por jarlh</footer>
 
 <div class="tarjeta-fondo" id="tarjeta" aria-hidden="true">
   <article class="tarjeta" role="dialog" aria-modal="true" aria-labelledby="tarjeta-titulo">
-    <button class="tarjeta-cerrar" id="tarjeta-cerrar" type="button" aria-label="Cerrar">✕</button>
+    <button class="tarjeta-cerrar" id="tarjeta-cerrar" type="button" data-t-al="aria_cerrar" aria-label="Cerrar">✕</button>
     <div class="tarjeta-foto"><img id="tarjeta-img" alt=""></div>
     <h2 id="tarjeta-titulo"></h2>
     <p id="tarjeta-texto"></p>
@@ -212,86 +219,86 @@ body.editando .editor{display:flex}
 </div>
 
 <!--editor-->
-<aside class="editor" id="editor" aria-label="Editor de la plantilla">
+<aside class="editor" id="editor" data-t-al="aria_editor" aria-label="Editor de la plantilla">
   <div class="editor-scroll">
-    <p class="editor-kicker">Plantilla · Día de las flores amarillas</p>
-    <h1>Arma tu jardín</h1>
-    <p class="ayuda">Llena la dedicatoria, sube las fotos y escribe un mensaje para cada frase. Revisa la vista previa y crea el enlace para enviárselo.</p>
+    <p class="editor-kicker" data-t="editor_kicker">Plantilla · Día de las flores amarillas</p>
+    <h1 data-t="editor_titulo">Arma tu jardín</h1>
+    <p class="ayuda" data-t="editor_ayuda">Llena la dedicatoria, sube las fotos y escribe un mensaje para cada frase. Revisa la vista previa y crea el enlace para enviárselo.</p>
 
     <section class="grupo">
-      <h2>Dedicatoria</h2>
-      <label class="campo"><span>De:</span><input type="text" id="f-de" maxlength="40" placeholder="Tu nombre" autocomplete="off"></label>
-      <label class="campo"><span>Para:</span><input type="text" id="f-para" maxlength="40" placeholder="Su nombre" autocomplete="off"></label>
+      <h2 data-t="g_dedicatoria">Dedicatoria</h2>
+      <label class="campo"><span data-t="etiqueta_de">De:</span><input type="text" id="f-de" maxlength="40" data-t-ph="ph_tu_nombre" placeholder="Tu nombre" autocomplete="off"></label>
+      <label class="campo"><span data-t="etiqueta_para">Para:</span><input type="text" id="f-para" maxlength="40" data-t-ph="ph_su_nombre" placeholder="Su nombre" autocomplete="off"></label>
     </section>
 
     <section class="grupo" id="grupo-central">
-      <h2>Flor central</h2>
+      <h2 data-t="g_central">Flor central</h2>
       <div class="fila-central">
         <div id="foto-central"></div>
-        <p class="ayuda">Esta foto aparece en el centro del girasol grande. Al tocarla se ve en grande.</p>
+        <p class="ayuda" data-t="ayuda_central">Esta foto aparece en el centro del girasol grande. Al tocarla se ve en grande.</p>
       </div>
     </section>
 
     <section class="grupo">
-      <h2>Frases</h2>
-      <p class="ayuda">Cada frase flota en el jardín con un marco dorado. Al tocarla se abre un cuadro con su foto y su mensaje.</p>
+      <h2 data-t="g_frases">Frases</h2>
+      <p class="ayuda" data-t="ayuda_frases">Cada frase flota en el jardín con un marco dorado. Al tocarla se abre un cuadro con su foto y su mensaje.</p>
       <ol class="frases" id="lista-frases"></ol>
     </section>
 
     <section class="grupo" id="grupo-musica">
-      <h2>Música <span class="opcional">(opcional)</span></h2>
-      <p class="ayuda">Pega el enlace de una canción de YouTube (en el video: Compartir → Copiar). Si lo copias marcando “Empezar en”, sonará desde ese momento. Si lo dejas vacío, el jardín se abre sin música.</p>
-      <label class="campo"><input type="text" id="f-youtube" inputmode="url" placeholder="https://youtu.be/…" autocomplete="off" aria-label="Enlace de YouTube"></label>
+      <h2><span data-t="g_musica">Música</span> <span class="opcional" data-t="opcional">(opcional)</span></h2>
+      <p class="ayuda" data-t="ayuda_youtube">Pega el enlace de una canción de YouTube (en el video: Compartir → Copiar). Si lo copias marcando “Empezar en”, sonará desde ese momento. Si lo dejas vacío, el jardín se abre sin música.</p>
+      <label class="campo"><input type="text" id="f-youtube" inputmode="url" placeholder="https://youtu.be/…" autocomplete="off" data-t-al="aria_youtube" aria-label="Enlace de YouTube"></label>
       <p class="estado-yt" id="estado-yt" role="status"></p>
       <div class="yt-prueba" id="yt-prueba" hidden></div>
       <details class="mp3">
-        <summary>¿Vas a descargar el archivo? También puedes subir un MP3</summary>
-        <p class="ayuda">El MP3 va solo dentro del archivo descargado, no en el enlace. Usa una canción que tengas derecho a compartir, de menos de 10 MB.</p>
+        <summary data-t="mp3_resumen">¿Vas a descargar el archivo? También puedes subir un MP3</summary>
+        <p class="ayuda" data-t="ayuda_mp3">El MP3 va solo dentro del archivo descargado, no en el enlace. Usa una canción que tengas derecho a compartir, de menos de 10 MB.</p>
         <div class="musica">
-          <label class="btn-archivo"><input type="file" id="f-musica" accept="audio/*,.mp3,.m4a"><span id="etiqueta-musica">🎵 Elegir MP3</span></label>
+          <label class="btn-archivo"><input type="file" id="f-musica" accept="audio/*,.mp3,.m4a" data-t-al="aria_mp3"><span id="etiqueta-musica">🎵 Elegir MP3</span></label>
           <div class="musica-info" id="musica-info" hidden>
             <p class="musica-nombre" id="musica-nombre"></p>
             <audio id="musica-prueba" controls preload="metadata"></audio>
-            <button type="button" class="btn-texto" id="musica-quitar">Quitar MP3</button>
+            <button type="button" class="btn-texto" id="musica-quitar" data-t="mp3_quitar">Quitar MP3</button>
           </div>
         </div>
       </details>
     </section>
 
     <section class="grupo" id="grupo-creados" hidden>
-      <h2>Tus jardines creados</h2>
-      <p class="ayuda">Se guardan solo en este navegador. Desde aquí puedes copiar el enlace otra vez o borrar el jardín.</p>
+      <h2 data-t="g_creados">Tus jardines creados</h2>
+      <p class="ayuda" data-t="ayuda_creados">Se guardan solo en este navegador. Desde aquí puedes copiar el enlace otra vez o borrar el jardín.</p>
       <ul class="creados" id="lista-creados"></ul>
     </section>
 
-    <button type="button" class="btn-texto reiniciar" id="b-reiniciar">Empezar de nuevo</button>
+    <button type="button" class="btn-texto reiniciar" id="b-reiniciar" data-t="btn_reiniciar">Empezar de nuevo</button>
   </div>
   <div class="acciones">
     <div class="acciones-fila">
-      <button type="button" class="btn btn-sec" id="b-vista">Vista previa</button>
-      <button type="button" class="btn btn-pri" id="b-enlace">Crear enlace</button>
+      <button type="button" class="btn btn-sec" id="b-vista" data-t="btn_vista">Vista previa</button>
+      <button type="button" class="btn btn-pri" id="b-enlace" data-t="btn_enlace">Crear enlace</button>
     </div>
-    <button type="button" class="btn-texto descargar-archivo" id="b-descargar">o descargar como archivo</button>
+    <button type="button" class="btn-texto descargar-archivo" id="b-descargar" data-t="btn_descargar">o descargar como archivo</button>
     <p class="nota" id="nota" role="status"></p>
-    <p class="credito-editor">Creado por jarlh</p>
+    <p class="credito-editor" data-t="credito">Creado por jarlh</p>
   </div>
 </aside>
 
 <div class="listo-fondo" id="listo" aria-hidden="true">
   <div class="listo" role="dialog" aria-modal="true" aria-labelledby="listo-titulo">
-    <button class="tarjeta-cerrar" id="listo-cerrar" type="button" aria-label="Cerrar">✕</button>
+    <button class="tarjeta-cerrar" id="listo-cerrar" type="button" data-t-al="aria_cerrar" aria-label="Cerrar">✕</button>
     <p class="listo-flor" aria-hidden="true">🌻</p>
-    <h2 id="listo-titulo">¡Tu jardín está listo!</h2>
+    <h2 id="listo-titulo" data-t="listo_titulo">¡Tu jardín está listo!</h2>
     <p class="ayuda" id="listo-texto"></p>
     <div class="listo-enlace">
-      <input type="text" id="listo-url" readonly aria-label="Enlace del jardín">
-      <button type="button" id="listo-copiar">Copiar</button>
+      <input type="text" id="listo-url" readonly data-t-al="aria_enlace" aria-label="Enlace del jardín">
+      <button type="button" id="listo-copiar" data-t="listo_copiar">Copiar</button>
     </div>
     <div class="acciones-fila">
-      <button type="button" class="btn btn-sec" id="listo-abrir">Abrir</button>
+      <button type="button" class="btn btn-sec" id="listo-abrir" data-t="listo_abrir">Abrir</button>
       <button type="button" class="btn btn-pri" id="listo-compartir">Compartir</button>
     </div>
-    <button type="button" class="btn-texto" id="listo-borrar">Borrar este jardín</button>
+    <button type="button" class="btn-texto" id="listo-borrar" data-t="listo_borrar">Borrar este jardín</button>
   </div>
 </div>
 <!--/editor-->
@@ -318,19 +325,190 @@ const ID_REMOTO = (() => {
 const MODO = DATOS.modo === "regalo" || ID_REMOTO ? "regalo" : "editor";
 const FUENTE = window.__FUENTE_JARDIN || "";
 
-const FRASES_DECORATIVAS = [
-  "☀️ Mi sol", "💛 Te quiero", "🌷 Mi jardín", "✨ Brillas", "🦋 Mariposa", "🌞 Mi luz", "💐 Para ti",
-  "🌻 Te elijo", "💛 Mi alegría", "🌈 Esperanza", "🌿 Mi paz", "🌟 Mi estrella", "🌺 Mi flor", "💫 Magia",
-  "🎶 Tu risa", "🤗 Abrazos", "🥰 Mi vida", "🌄 Amanecer", "🍀 Mi fortuna", "🌼 Siempre tú", "🌻 Contigo", "🌸 Primavera"
-];
-const PISTAS_MENSAJE = [
-  "Ej.: Te amo por cómo me cuidas y por esa risa que…",
-  "Ej.: Contigo todo se siente en paz, sobre todo cuando…",
-  "Ej.: Eres mi girasol porque siempre buscas la luz…",
-  "Ej.: Hoy es el día de las flores amarillas y tú eres la mía…",
-  "Ej.: Este es uno de mis recuerdos favoritos contigo…",
-  "Ej.: Nadie es tan dulce como tú cuando…"
-];
+/* =========================================================
+   Textos en español e inglés. El idioma se elige con el botón
+   de arriba a la derecha y se guarda junto con cada regalo.
+   ========================================================= */
+const TEXTOS = {
+  es: {
+    aria_canvas: "Jardín animado de flores amarillas", aria_idioma: "Ver la página en inglés", aria_editor: "Editor de la plantilla",
+    aria_play: "Reproducir", aria_pausa: "Pausar", aria_cerrar: "Cerrar", aria_enlace: "Enlace del jardín",
+    aria_youtube: "Enlace de YouTube", aria_mp3: "Canción en MP3",
+    aria_frase: "Frase {n}", aria_mensaje: "Mensaje de la frase {n}", aria_foto_central: "Foto de la flor central", aria_foto_frase: "Foto de la frase {n}",
+    intro_kicker: "21 de septiembre · Día de las flores amarillas",
+    intro_titulo: "Un jardín para ti",
+    etiqueta_para: "Para:", etiqueta_de: "De:",
+    btn_preparando: "Preparando el jardín…", btn_abrir: "Abrir el jardín 🌼",
+    nota_volumen: "Súbele el volumen 🎶",
+    btn_volver: "← Editar", credito: "Creado por jarlh",
+    doc_titulo: "Jardín de Flores Amarillas", doc_titulo_para: "Para {para} · Flores amarillas",
+    titulo_3d: "Flores amarillas", subtitulo_3d: "para {para} 💛", para_ti: "ti",
+    tarjeta_para: "Para {para}", tarjeta_para_ti: "Para ti", tarjeta_de: "Con cariño, {de} 💛",
+    pista_frases: "Toca las frases con marco dorado 💌 · arrastra para girar",
+    pista_simple: "Arrastra para girar · toca para que broten flores",
+    pista_yt: "Toca el video pequeño de abajo para escuchar la canción 🎶",
+    yt_error: "Esta canción de YouTube no se puede reproducir aquí 😔",
+    aviso_no_existe: "Este jardín no existe o ya fue borrado 🌼",
+    aviso_carga: "No se pudo cargar el jardín. Revisa tu conexión y vuelve a intentarlo.",
+    aviso_three: "No se pudo cargar el jardín. Revisa tu conexión a internet y vuelve a abrir la página.",
+    aviso_webgl: "Tu navegador no puede mostrar gráficos 3D. Prueba con Chrome o Safari actualizados.",
+    editor_kicker: "Plantilla · Día de las flores amarillas",
+    editor_titulo: "Arma tu jardín",
+    editor_ayuda: "Llena la dedicatoria, sube las fotos y escribe un mensaje para cada frase. Revisa la vista previa y crea el enlace para enviárselo.",
+    g_dedicatoria: "Dedicatoria", ph_tu_nombre: "Tu nombre", ph_su_nombre: "Su nombre",
+    g_central: "Flor central", ayuda_central: "Esta foto aparece en el centro del girasol grande. Al tocarla se ve en grande.",
+    g_frases: "Frases", ayuda_frases: "Cada frase flota en el jardín con un marco dorado. Al tocarla se abre un cuadro con su foto y su mensaje.",
+    g_musica: "Música", opcional: "(opcional)",
+    ayuda_youtube: "Pega el enlace de una canción de YouTube (en el video: Compartir → Copiar). Si lo copias marcando “Empezar en”, sonará desde ese momento. Si lo dejas vacío, el jardín se abre sin música.",
+    mp3_resumen: "¿Vas a descargar el archivo? También puedes subir un MP3",
+    ayuda_mp3: "El MP3 va solo dentro del archivo descargado, no en el enlace. Usa una canción que tengas derecho a compartir, de menos de 10 MB.",
+    mp3_elegir: "🎵 Elegir MP3", mp3_cambiar: "🎵 Cambiar MP3", mp3_quitar: "Quitar MP3",
+    yt_ok: "✓ Canción lista{inicio}. Dale play abajo para escucharla.", yt_ok_inicio: ", empieza en {t}",
+    yt_mal: "Ese enlace no parece de YouTube. Cópialo desde el botón Compartir del video.",
+    yt_prueba_titulo: "Vista previa de la canción",
+    g_creados: "Tus jardines creados", ayuda_creados: "Se guardan solo en este navegador. Desde aquí puedes copiar el enlace otra vez o borrar el jardín.",
+    creados_item: "Para {para}", creados_item_sin: "Jardín", creados_copiar: "Copiar", creados_borrar: "Borrar",
+    btn_reiniciar: "Empezar de nuevo", btn_vista: "Vista previa", btn_enlace: "Crear enlace", btn_creando: "Creando…",
+    btn_descargar: "o descargar como archivo", btn_preparando_archivo: "Preparando…",
+    foto_subir: "＋ Subir<br>foto", foto_quitar: "Quitar foto",
+    ph_mensaje: "Escribe un mensaje sobre esta frase…",
+    listo_titulo: "¡Tu jardín está listo!",
+    listo_texto: "Envíale este enlace{a_para}. Cualquier persona que tenga el enlace puede ver el jardín. Si cambias algo, crea un enlace nuevo.",
+    listo_a_para: " a {para}",
+    listo_copiar: "Copiar", listo_copiado: "¡Copiado!", listo_no_copiado: "No se pudo copiar",
+    listo_abrir: "Abrir", listo_compartir: "Compartir", listo_whatsapp: "Enviar por WhatsApp", listo_borrar: "Borrar este jardín",
+    compartir_titulo: "Flores amarillas para ti", compartir_texto: "Te hice un jardín de flores amarillas 🌻",
+    confirm_reiniciar: "¿Borrar todo lo que llenaste y empezar de nuevo?",
+    confirm_borrar: "¿Borrar este jardín? El enlace dejará de funcionar.",
+    err_borrador: "No se pudo guardar el borrador en este navegador (las fotos pesan mucho). Descarga el regalo antes de cerrar.",
+    err_foto: "No se pudo leer esa foto. Prueba con una foto JPG o PNG.",
+    err_audio_tipo: "Ese archivo no parece una canción. Usa un MP3 o M4A.",
+    err_audio_peso: "La canción pesa {peso}. Usa una de menos de 25 MB (mejor de menos de 10 MB).",
+    aviso_audio_grande: "La canción pesa {peso}: el regalo tardará un poco más en cargar en el celular.",
+    err_archivo: "No se pudo preparar el archivo. Recarga la página e inténtalo otra vez.",
+    err_leer_cancion: "No se pudo leer la canción. Vuelve a subirla e inténtalo otra vez.",
+    descarga_ok: "Listo: se descargó {archivo} ({peso}).", descarga_yt: " La canción de YouTube solo suena en los enlaces; para el archivo sube un MP3.",
+    err_enlace_local: "Para crear enlaces, abre la plantilla desde regala-flores-amarillas.pages.dev",
+    err_enlace_vacio: "Escribe al menos para quién es, o sube una foto, antes de crear el enlace.",
+    err_enlace_muchos: "Creaste muchos enlaces seguidos. Espera un rato e inténtalo otra vez.",
+    err_enlace_peso: "Las fotos pesan demasiado. Prueba con menos fotos o con fotos más livianas.",
+    err_enlace_red: "No se pudo crear el enlace. Revisa tu conexión e inténtalo otra vez.",
+    err_enlace_otro: "No se pudo crear el enlace. Inténtalo otra vez.",
+    aviso_mp3_enlace: "El MP3 no va en el enlace. Para que suene música, pega un enlace de YouTube y crea el enlace otra vez.",
+    borrado_ok: "Listo, ese jardín se borró.", err_borrar: "No se pudo borrar. Revisa tu conexión e inténtalo otra vez.",
+    decorativas: [
+      "☀️ Mi sol", "💛 Te quiero", "🌷 Mi jardín", "✨ Brillas", "🦋 Mariposa", "🌞 Mi luz", "💐 Para ti",
+      "🌻 Te elijo", "💛 Mi alegría", "🌈 Esperanza", "🌿 Mi paz", "🌟 Mi estrella", "🌺 Mi flor", "💫 Magia",
+      "🎶 Tu risa", "🤗 Abrazos", "🥰 Mi vida", "🌄 Amanecer", "🍀 Mi fortuna", "🌼 Siempre tú", "🌻 Contigo", "🌸 Primavera"
+    ],
+    frases: ["❤️ Te amo", "🌙 Mi calma", "🌻 Mi girasol", "🌼 Mi flor amarilla", "💌 Recuerdos", "🍯 Dulzura"],
+    pistas: [
+      "Ej.: Te amo por cómo me cuidas y por esa risa que…",
+      "Ej.: Contigo todo se siente en paz, sobre todo cuando…",
+      "Ej.: Eres mi girasol porque siempre buscas la luz…",
+      "Ej.: Hoy es el día de las flores amarillas y tú eres la mía…",
+      "Ej.: Este es uno de mis recuerdos favoritos contigo…",
+      "Ej.: Nadie es tan dulce como tú cuando…"
+    ]
+  },
+  en: {
+    aria_canvas: "Animated yellow flower garden", aria_idioma: "Ver la página en español", aria_editor: "Template editor",
+    aria_play: "Play", aria_pausa: "Pause", aria_cerrar: "Close", aria_enlace: "Garden link",
+    aria_youtube: "YouTube link", aria_mp3: "MP3 song",
+    aria_frase: "Phrase {n}", aria_mensaje: "Message for phrase {n}", aria_foto_central: "Center flower photo", aria_foto_frase: "Photo for phrase {n}",
+    intro_kicker: "September 21 · Yellow Flowers Day",
+    intro_titulo: "A garden for you",
+    etiqueta_para: "To:", etiqueta_de: "From:",
+    btn_preparando: "Getting the garden ready…", btn_abrir: "Open the garden 🌼",
+    nota_volumen: "Turn the volume up 🎶",
+    btn_volver: "← Edit", credito: "Made by jarlh",
+    doc_titulo: "Yellow Flowers Garden", doc_titulo_para: "For {para} · Yellow Flowers",
+    titulo_3d: "Yellow flowers", subtitulo_3d: "for {para} 💛", para_ti: "you",
+    tarjeta_para: "For {para}", tarjeta_para_ti: "For you", tarjeta_de: "With love, {de} 💛",
+    pista_frases: "Tap the phrases with a golden frame 💌 · drag to spin",
+    pista_simple: "Drag to spin · tap to make flowers bloom",
+    pista_yt: "Tap the small video below to hear the song 🎶",
+    yt_error: "This YouTube song can't be played here 😔",
+    aviso_no_existe: "This garden doesn't exist or was deleted 🌼",
+    aviso_carga: "The garden couldn't load. Check your connection and try again.",
+    aviso_three: "The garden couldn't load. Check your internet connection and open the page again.",
+    aviso_webgl: "Your browser can't show 3D graphics. Try an up-to-date Chrome or Safari.",
+    editor_kicker: "Template · Yellow Flowers Day",
+    editor_titulo: "Build your garden",
+    editor_ayuda: "Fill in the dedication, add photos and write a message for each phrase. Check the preview and create the link to send it.",
+    g_dedicatoria: "Dedication", ph_tu_nombre: "Your name", ph_su_nombre: "Their name",
+    g_central: "Center flower", ayuda_central: "This photo goes in the middle of the big sunflower. Tapping it opens it larger.",
+    g_frases: "Phrases", ayuda_frases: "Each phrase floats in the garden with a golden frame. Tapping it opens a card with its photo and message.",
+    g_musica: "Music", opcional: "(optional)",
+    ayuda_youtube: "Paste the link of a YouTube song (on the video: Share → Copy). If you copy it with “Start at” ticked, it starts from that moment. Leave it empty and the garden opens without music.",
+    mp3_resumen: "Downloading the file instead? You can also add an MP3",
+    ayuda_mp3: "The MP3 only goes inside the downloaded file, not in the link. Use a song you have the right to share, under 10 MB.",
+    mp3_elegir: "🎵 Choose MP3", mp3_cambiar: "🎵 Change MP3", mp3_quitar: "Remove MP3",
+    yt_ok: "✓ Song ready{inicio}. Hit play below to hear it.", yt_ok_inicio: ", starts at {t}",
+    yt_mal: "That link doesn't look like YouTube. Copy it from the video's Share button.",
+    yt_prueba_titulo: "Song preview",
+    g_creados: "Gardens you created", ayuda_creados: "They are saved only in this browser. From here you can copy the link again or delete the garden.",
+    creados_item: "For {para}", creados_item_sin: "Garden", creados_copiar: "Copy", creados_borrar: "Delete",
+    btn_reiniciar: "Start over", btn_vista: "Preview", btn_enlace: "Create link", btn_creando: "Creating…",
+    btn_descargar: "or download as a file", btn_preparando_archivo: "Preparing…",
+    foto_subir: "＋ Add<br>photo", foto_quitar: "Remove photo",
+    ph_mensaje: "Write a message about this phrase…",
+    listo_titulo: "Your garden is ready!",
+    listo_texto: "Send this link{a_para}. Anyone with the link can see the garden. If you change something, create a new link.",
+    listo_a_para: " to {para}",
+    listo_copiar: "Copy", listo_copiado: "Copied!", listo_no_copiado: "Couldn't copy",
+    listo_abrir: "Open", listo_compartir: "Share", listo_whatsapp: "Send on WhatsApp", listo_borrar: "Delete this garden",
+    compartir_titulo: "Yellow flowers for you", compartir_texto: "I made you a garden of yellow flowers 🌻",
+    confirm_reiniciar: "Clear everything you filled in and start over?",
+    confirm_borrar: "Delete this garden? The link will stop working.",
+    err_borrador: "The draft couldn't be saved in this browser (the photos are too heavy). Download the gift before closing.",
+    err_foto: "That photo couldn't be read. Try a JPG or PNG photo.",
+    err_audio_tipo: "That file doesn't look like a song. Use an MP3 or M4A.",
+    err_audio_peso: "The song is {peso}. Use one under 25 MB (better under 10 MB).",
+    aviso_audio_grande: "The song is {peso}: the gift will take a bit longer to load on a phone.",
+    err_archivo: "The file couldn't be prepared. Reload the page and try again.",
+    err_leer_cancion: "The song couldn't be read. Add it again and try once more.",
+    descarga_ok: "Done: {archivo} was downloaded ({peso}).", descarga_yt: " The YouTube song only plays in links; for the file add an MP3.",
+    err_enlace_local: "To create links, open the template from regala-flores-amarillas.pages.dev",
+    err_enlace_vacio: "Write at least who it is for, or add a photo, before creating the link.",
+    err_enlace_muchos: "You created many links in a row. Wait a while and try again.",
+    err_enlace_peso: "The photos are too heavy. Try fewer photos or lighter ones.",
+    err_enlace_red: "The link couldn't be created. Check your connection and try again.",
+    err_enlace_otro: "The link couldn't be created. Try again.",
+    aviso_mp3_enlace: "The MP3 doesn't go in the link. For music, paste a YouTube link and create the link again.",
+    borrado_ok: "Done, that garden was deleted.", err_borrar: "It couldn't be deleted. Check your connection and try again.",
+    decorativas: [
+      "☀️ My sun", "💛 I love you", "🌷 My garden", "✨ You shine", "🦋 Butterfly", "🌞 My light", "💐 For you",
+      "🌻 I choose you", "💛 My joy", "🌈 Hope", "🌿 My peace", "🌟 My star", "🌺 My flower", "💫 Magic",
+      "🎶 Your laugh", "🤗 Hugs", "🥰 My life", "🌄 Sunrise", "🍀 My luck", "🌼 Always you", "🌻 With you", "🌸 Spring"
+    ],
+    frases: ["❤️ I love you", "🌙 My calm", "🌻 My sunflower", "🌼 My yellow flower", "💌 Memories", "🍯 Sweetness"],
+    pistas: [
+      "Eg.: I love you for how you take care of me and for that laugh that…",
+      "Eg.: With you everything feels calm, especially when…",
+      "Eg.: You are my sunflower because you always look for the light…",
+      "Eg.: Today is yellow flowers day and you are mine…",
+      "Eg.: This is one of my favourite memories with you…",
+      "Eg.: Nobody is as sweet as you when…"
+    ]
+  }
+};
+const CLAVE_IDIOMA = "jardin-flores-amarillas:idioma";
+function idiomaInicial(){
+  const d = DATOS.idioma === "en" || DATOS.idioma === "es" ? DATOS.idioma : "";
+  if (d) return d;
+  let g = "";
+  try { g = localStorage.getItem(CLAVE_IDIOMA) || ""; } catch (e){ /* sin permiso */ }
+  if (g === "es" || g === "en") return g;
+  return (navigator.language || "es").toLowerCase().startsWith("es") ? "es" : "en";
+}
+let idioma = idiomaInicial();
+function txt(clave, vars){
+  let s = TEXTOS[idioma][clave];
+  if (s === undefined) s = TEXTOS.es[clave];
+  if (typeof s !== "string") return s;
+  return vars ? s.replace(/\{(\w+)\}/g, (m, k) => k in vars ? vars[k] : m) : s;
+}
 
 /* ---------- Utilidades ---------- */
 const TAU = Math.PI * 2;
@@ -374,7 +552,7 @@ const tieneContenido = f => !!(f.foto || f.mensaje.trim());
 let sonando = false, hayMusica = false, fuenteMusica = "", urlMp3 = "";
 let yt = null, ytListo = false, ytClave = "", apiYT = null, tAvisoYT = 0;
 const fmt = s => isFinite(s) ? Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0") : "0:00";
-function marcar(v){ sonando = v; player.classList.toggle("sonando", v); playBtn.setAttribute("aria-label", v ? "Pausar" : "Reproducir"); }
+function marcar(v){ sonando = v; player.classList.toggle("sonando", v); playBtn.setAttribute("aria-label", txt(v ? "aria_pausa" : "aria_play")); }
 
 function blobDeDataURL(d){
   const coma = d.indexOf(","), tipo = d.slice(5, coma).split(";")[0] || "audio/mpeg";
@@ -442,7 +620,7 @@ function ponerYT(v){
       events: {
         onReady: () => { ytListo = true; },
         onStateChange: e => { if (fuenteMusica === "yt") marcar(e.data === 1 || e.data === 3); if (e.data === 1) avisoYT(""); },
-        onError: () => { if (fuenteMusica === "yt") avisoYT("Esta canción de YouTube no se puede reproducir aquí 😔"); }
+        onError: () => { if (fuenteMusica === "yt") avisoYT(txt("yt_error")); }
       }
     });
   }).catch(() => {});
@@ -463,7 +641,7 @@ function aplicarMusica(){
 function reproducir(){
   if (fuenteMusica === "yt"){
     if (yt && ytListo){ try { yt.playVideo(); } catch (e){ /* se avisa abajo */ } }
-    setTimeout(() => { if (fuenteMusica === "yt" && !sonando) avisoYT("Toca el video pequeño de abajo para escuchar la canción 🎶"); }, 2200);
+    setTimeout(() => { if (fuenteMusica === "yt" && !sonando) avisoYT(txt("pista_yt")); }, 2200);
   } else if (fuenteMusica === "mp3"){
     const p = audio.play(); if (p && p.catch) p.catch(() => marcar(false));
   }
@@ -502,21 +680,23 @@ if (ID_REMOTO){
     .then(r => { if (r.status === 404) throw new Error("no-existe"); if (!r.ok) throw new Error("red"); return r.json(); })
     .then(d => {
       const v = d.youtube && d.youtube.id ? d.youtube : null;
+      if (d.idioma === "es" || d.idioma === "en") idioma = d.idioma;
       estado = normalizar(Object.assign({}, d, { youtube: v ? urlYT(v) : "" }), DATOS);
       aplicarMusica();
+      aplicarIdioma();
     })
     .catch(e => {
-      mostrarAviso(e.message === "no-existe" ? "Este jardín no existe o ya fue borrado 🌼" : "No se pudo cargar el jardín. Revisa tu conexión y vuelve a intentarlo.");
+      mostrarAviso(txt(e.message === "no-existe" ? "aviso_no_existe" : "aviso_carga"));
       throw e;
     });
 }
 
-if (typeof THREE === "undefined"){ mostrarAviso("No se pudo cargar el jardín. Revisa tu conexión a internet y vuelve a abrir la página."); return; }
+if (typeof THREE === "undefined"){ mostrarAviso(txt("aviso_three")); return; }
 
 /* ---------- Escena ---------- */
 let renderer;
 try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true }); }
-catch (e){ mostrarAviso("Tu navegador no puede mostrar gráficos 3D. Prueba con Chrome o Safari actualizados."); return; }
+catch (e){ mostrarAviso(txt("aviso_webgl")); return; }
 
 const movil = matchMedia("(pointer: coarse)").matches || Math.min(innerWidth, innerHeight) < 600;
 renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, movil ? 1.75 : 2));
@@ -1255,12 +1435,15 @@ function quitarSprite(s){ scene.remove(s); if (s.material.map) s.material.map.di
 // Frases decorativas (no se tocan)
 const palabras = [];
 function crearPalabras(){
-  FRASES_DECORATIVAS.forEach((txt, i) => {
-    const { tex, aspecto } = texturaTexto(txt, COLORES[i % COLORES.length]);
+  const previos = palabras.map(s => s.userData);
+  palabras.forEach(quitarSprite);
+  palabras.length = 0;
+  txt("decorativas").forEach((frase, i) => {
+    const { tex, aspecto } = texturaTexto(frase, COLORES[i % COLORES.length]);
     const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false, fog: false, opacity: 0 }));
     s.scale.set(10.5 * aspecto, 10.5, 1);
     s.renderOrder = 4; s.visible = false;
-    s.userData = { r: azar(150, 270), th: azar(0, TAU), y: azar(-30, 140), vel: azar(0.05, 0.11), fase: azar(0, TAU) };
+    s.userData = previos[i] || { r: azar(150, 270), th: azar(0, TAU), y: azar(-30, 140), vel: azar(0.05, 0.11), fase: azar(0, TAU) };
     scene.add(s); palabras.push(s);
   });
 }
@@ -1294,9 +1477,9 @@ function ponerEspeciales(){
 let titulo = null, claveTitulo = "";
 function ponerTitulo(){
   const para = estado.para.trim();
-  const sub = `para ${para || "ti"} 💛`;
-  if (sub === claveTitulo) return;
-  claveTitulo = sub;
+  const sub = txt("subtitulo_3d", { para: para || txt("para_ti") });
+  if (sub + idioma === claveTitulo) return;
+  claveTitulo = sub + idioma;
   const W = 1024, H = 400, c = lienzo(W, H), x = c.getContext("2d");
   const linea = (texto, cy, peso, fs, minimo, relleno, pasadas) => {
     let ft, fe, ts;
@@ -1309,7 +1492,7 @@ function ponerTitulo(){
     x.fillStyle = relleno(fs);
     escribir(x, ts, W / 2, cy, ft, fe, pasadas);
   };
-  linea("Flores amarillas", 150, 700, 150, 60, fs => {
+  linea(txt("titulo_3d"), 150, 700, 150, 60, fs => {
     const g = x.createLinearGradient(0, 150 - fs * 0.5, 0, 150 + fs * 0.5);
     g.addColorStop(0, "#fffbe8"); g.addColorStop(1, "#ffd64a");
     return g;
@@ -1352,8 +1535,29 @@ function ponerIntro(){
   $("i-para").textContent = para; $("linea-para").hidden = !para;
   $("i-de").textContent = de; $("linea-de").hidden = !de;
   $("etiqueta").hidden = !para && !de;
-  if (modoActual !== "editor") document.title = para ? `Para ${para} · Flores amarillas` : "Jardín de Flores Amarillas";
+  if (modoActual !== "editor") document.title = para ? txt("doc_titulo_para", { para }) : txt("doc_titulo");
 }
+
+let refrescarEditor = null;
+function aplicarIdioma(){
+  document.documentElement.lang = idioma;
+  document.querySelectorAll("[data-t]").forEach(el => { el.textContent = txt(el.dataset.t); });
+  document.querySelectorAll("[data-t-ph]").forEach(el => { el.placeholder = txt(el.dataset.tPh); });
+  document.querySelectorAll("[data-t-al]").forEach(el => { el.setAttribute("aria-label", txt(el.dataset.tAl)); });
+  $("idioma").textContent = idioma === "es" ? "EN" : "ES";
+  marcar(sonando);
+  btnAbrir.textContent = txt(btnAbrir.disabled ? "btn_preparando" : "btn_abrir");
+  ponerIntro();
+  if (modoActual === "editor") document.title = txt("doc_titulo");
+  claveTitulo = ""; claveEspeciales = "";
+  if (fuentesListas){ crearPalabras(); actualizarEscena(); }
+  if (refrescarEditor) refrescarEditor();
+}
+$("idioma").addEventListener("click", () => {
+  idioma = idioma === "es" ? "en" : "es";
+  try { localStorage.setItem(CLAVE_IDIOMA, idioma); } catch (e){ /* sin permiso */ }
+  aplicarIdioma();
+});
 
 let fuentesListas = false, versionEscena = 0;
 async function actualizarEscena(){
@@ -1444,7 +1648,7 @@ function alTocar(obj){
   if (obj === flor){
     if (modoActual === "editor") return irACampo($("grupo-central"));
     const para = estado.para.trim(), de = estado.de.trim();
-    return abrirTarjeta({ titulo: para ? `Para ${para}` : "Para ti", texto: de ? `Con cariño, ${de} 💛` : "", foto: estado.fotoCentral });
+    return abrirTarjeta({ titulo: para ? txt("tarjeta_para", { para }) : txt("tarjeta_para_ti"), texto: de ? txt("tarjeta_de", { de }) : "", foto: estado.fotoCentral });
   }
   const i = obj.userData.i, f = estado.frases[i];
   if (modoActual === "editor") return irACampo($("lista-frases").children[i]);
@@ -1503,7 +1707,7 @@ function abrir(){
   if (!zoomManual) targetDist = baseDist;
   if (hayMusica){ player.classList.add("visible"); reproducir(); }
   const hay = !!estado.fotoCentral || estado.frases.some(f => f.texto.trim() && tieneContenido(f));
-  pista.textContent = hay ? "Toca las frases con marco dorado 💌 · arrastra para girar" : "Arrastra para girar · toca para que broten flores";
+  pista.textContent = txt(hay ? "pista_frases" : "pista_simple");
   setTimeout(() => { if (modoActual !== "editor" && tAbierto >= 0) pista.classList.add("visible"); }, 2600);
   setTimeout(() => pista.classList.remove("visible"), 10000);
 }
@@ -1556,7 +1760,7 @@ function iniciarEditor(){
     clearTimeout(tEscena); tEscena = setTimeout(actualizarEscena, 220);
     clearTimeout(tGuardar); tGuardar = setTimeout(() => {
       try { localStorage.setItem(CLAVE_BORRADOR, JSON.stringify(estado)); }
-      catch (e){ if (!avisoCuota){ avisoCuota = true; avisar("No se pudo guardar el borrador en este navegador (las fotos pesan mucho). Descarga el regalo antes de cerrar."); } }
+      catch (e){ if (!avisoCuota){ avisoCuota = true; avisar(txt("err_borrador")); } }
     }, 400);
   }
 
@@ -1585,7 +1789,7 @@ function iniciarEditor(){
 
   function campoFoto(cont, leer, escribirValor, etiqueta){
     cont.className = "foto";
-    cont.innerHTML = `<label class="foto-caja"><input type="file" accept="image/*"><img alt="" hidden><span class="foto-vacia">＋ Subir<br>foto</span></label><button type="button" class="btn-texto" hidden>Quitar foto</button>`;
+    cont.innerHTML = `<label class="foto-caja"><input type="file" accept="image/*"><img alt="" hidden><span class="foto-vacia">${txt("foto_subir")}</span></label><button type="button" class="btn-texto" hidden>${txt("foto_quitar")}</button>`;
     const caja = cont.querySelector(".foto-caja"), input = cont.querySelector("input"), img = cont.querySelector("img"),
           vacia = cont.querySelector(".foto-vacia"), quitar = cont.querySelector("button");
     input.setAttribute("aria-label", etiqueta);
@@ -1601,7 +1805,7 @@ function iniciarEditor(){
       if (!file) return;
       caja.classList.add("cargando");
       try { escribirValor(await comprimirFoto(file)); cambio(); }
-      catch (e){ avisar("No se pudo leer esa foto. Prueba con una foto JPG o PNG."); }
+      catch (e){ avisar(txt("err_foto")); }
       caja.classList.remove("cargando");
       pintar();
     });
@@ -1614,7 +1818,7 @@ function iniciarEditor(){
   fDe.addEventListener("input", () => { estado.de = fDe.value; cambio(); });
   fPara.addEventListener("input", () => { estado.para = fPara.value; cambio(); });
 
-  campoFoto($("foto-central"), () => estado.fotoCentral, v => { estado.fotoCentral = v; }, "Foto de la flor central");
+  campoFoto($("foto-central"), () => estado.fotoCentral, v => { estado.fotoCentral = v; }, txt("aria_foto_central"));
 
   const lista = $("lista-frases");
   estado.frases.forEach((f, i) => {
@@ -1623,12 +1827,12 @@ function iniciarEditor(){
     li.innerHTML = `<div class="frase-cab"><span class="frase-num">${i + 1}</span><input type="text" class="frase-texto" maxlength="30" autocomplete="off"></div>
       <div class="frase-cuerpo"><div></div><textarea class="frase-msg" rows="4" maxlength="500"></textarea></div>`;
     const inp = li.querySelector(".frase-texto"), ta = li.querySelector(".frase-msg");
-    inp.value = f.texto; inp.setAttribute("aria-label", `Frase ${i + 1}`);
-    ta.value = f.mensaje; ta.placeholder = PISTAS_MENSAJE[i] || "Escribe un mensaje sobre esta frase…";
-    ta.setAttribute("aria-label", `Mensaje de la frase ${i + 1}`);
+    inp.value = f.texto; inp.setAttribute("aria-label", txt("aria_frase", { n: i + 1 }));
+    ta.value = f.mensaje; ta.placeholder = txt("pistas")[i] || txt("ph_mensaje");
+    ta.setAttribute("aria-label", txt("aria_mensaje", { n: i + 1 }));
     inp.addEventListener("input", () => { f.texto = inp.value; cambio(); });
     ta.addEventListener("input", () => { f.mensaje = ta.value; cambio(); });
-    campoFoto(li.querySelector(".frase-cuerpo > div"), () => f.foto, v => { f.foto = v; }, `Foto de la frase ${i + 1}`);
+    campoFoto(li.querySelector(".frase-cuerpo > div"), () => f.foto, v => { f.foto = v; }, txt("aria_foto_frase", { n: i + 1 }));
     lista.appendChild(li);
   });
 
@@ -1665,7 +1869,7 @@ function iniciarEditor(){
     if (urlMusica) pruebaMusica.src = urlMusica; else pruebaMusica.removeAttribute("src");
     infoMusica.hidden = !archivo;
     nombreMusica.textContent = archivo ? `${archivo.nombre} · ${MB(archivo.blob.size)}` : "";
-    $("etiqueta-musica").textContent = archivo ? "🎵 Cambiar MP3" : "🎵 Elegir MP3";
+    $("etiqueta-musica").textContent = txt(archivo ? "mp3_cambiar" : "mp3_elegir");
     if (archivo) $("f-musica").closest("details").open = true;
   }
 
@@ -1676,8 +1880,8 @@ function iniciarEditor(){
     const s = estado.youtube.trim(), v = leerYT(s);
     estadoYT.className = "estado-yt" + (s ? (v ? " ok" : " mal") : "");
     estadoYT.textContent = !s ? "" : v
-      ? `✓ Canción lista${v.inicio ? `, empieza en ${fmt(v.inicio)}` : ""}. Dale play abajo para escucharla.`
-      : "Ese enlace no parece de YouTube. Cópialo desde el botón Compartir del video.";
+      ? txt("yt_ok", { inicio: v.inicio ? txt("yt_ok_inicio", { t: fmt(v.inicio) }) : "" })
+      : txt("yt_mal");
     const clave = v ? v.id + ":" + v.inicio : "";
     if (clave === clavePruebaYT) return;
     clavePruebaYT = clave;
@@ -1686,7 +1890,7 @@ function iniciarEditor(){
     if (v){
       const f = document.createElement("iframe");
       f.src = `https://www.youtube-nocookie.com/embed/${v.id}?start=${v.inicio}&rel=0&playsinline=1`;
-      f.title = "Vista previa de la canción";
+      f.title = txt("yt_prueba_titulo");
       f.allow = "encrypted-media; picture-in-picture";
       cajaPruebaYT.appendChild(f);
     }
@@ -1698,11 +1902,11 @@ function iniciarEditor(){
     const file = fMusica.files && fMusica.files[0];
     fMusica.value = "";
     if (!file) return;
-    if (!file.type.startsWith("audio/") && !/\.(mp3|m4a|aac|ogg|wav)$/i.test(file.name)){ avisar("Ese archivo no parece una canción. Usa un MP3 o M4A."); return; }
-    if (file.size > 25 * 1048576){ avisar(`La canción pesa ${MB(file.size)}. Usa una de menos de 25 MB (mejor de menos de 10 MB).`); return; }
+    if (!file.type.startsWith("audio/") && !/\.(mp3|m4a|aac|ogg|wav)$/i.test(file.name)){ avisar(txt("err_audio_tipo")); return; }
+    if (file.size > 25 * 1048576){ avisar(txt("err_audio_peso", { peso: MB(file.size) })); return; }
     usarMusica({ nombre: file.name, blob: file });
     idb.poner("musica", { nombre: file.name, blob: file }).catch(() => {});
-    if (file.size > 10 * 1048576) avisar(`La canción pesa ${MB(file.size)}: el regalo tardará un poco más en cargar en el celular.`);
+    if (file.size > 10 * 1048576) avisar(txt("aviso_audio_grande", { peso: MB(file.size) }));
   });
   $("musica-quitar").addEventListener("click", () => { usarMusica(null); idb.poner("musica", null).catch(() => {}); });
   idb.leer("musica").then(m => { if (m && m.blob) usarMusica({ nombre: m.nombre || "canción", blob: m.blob }); }).catch(() => {});
@@ -1718,7 +1922,7 @@ function iniciarEditor(){
 
   $("b-vista").addEventListener("click", entrarPrevia);
   $("b-reiniciar").addEventListener("click", async () => {
-    if (!confirm("¿Borrar todo lo que llenaste y empezar de nuevo?")) return;
+    if (!confirm(txt("confirm_reiniciar"))) return;
     try { localStorage.removeItem(CLAVE_BORRADOR); } catch (e){ /* nada que borrar */ }
     try { await idb.poner("musica", null); } catch (e){ /* nada que borrar */ }
     location.reload();
@@ -1727,19 +1931,19 @@ function iniciarEditor(){
   const slug = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 30);
   const bDescargar = $("b-descargar");
   bDescargar.addEventListener("click", async () => {
-    if (!FUENTE){ avisar("No se pudo preparar el archivo. Recarga la página e inténtalo otra vez."); return; }
-    bDescargar.disabled = true; bDescargar.textContent = "Preparando…";
+    if (!FUENTE){ avisar(txt("err_archivo")); return; }
+    bDescargar.disabled = true; bDescargar.textContent = txt("btn_preparando_archivo");
     let musica = null;
     try {
       if (musicaArchivo) musica = { nombre: musicaArchivo.nombre, datos: await leerComoDataURL(tipoAudio(musicaArchivo)) };
     } catch (e){
-      avisar("No se pudo leer la canción. Vuelve a subirla e inténtalo otra vez.");
-      bDescargar.disabled = false; bDescargar.textContent = "Descargar regalo";
+      avisar(txt("err_leer_cancion"));
+      bDescargar.disabled = false; bDescargar.textContent = txt("btn_descargar");
       return;
     }
-    bDescargar.disabled = false; bDescargar.textContent = "Descargar regalo";
+    bDescargar.disabled = false; bDescargar.textContent = txt("btn_descargar");
     const datos = {
-      modo: "regalo", de: estado.de.trim(), para: estado.para.trim(), fotoCentral: estado.fotoCentral,
+      modo: "regalo", idioma, de: estado.de.trim(), para: estado.para.trim(), fotoCentral: estado.fotoCentral,
       frases: estado.frases.map(f => ({ texto: f.texto.trim(), foto: f.foto, mensaje: f.mensaje.trim() })),
       musica
     };
@@ -1755,7 +1959,7 @@ function iniciarEditor(){
     enlace.href = url; enlace.download = `jardin-para-${slug(datos.para) || "ti"}.html`;
     document.body.appendChild(enlace); enlace.click(); enlace.remove();
     setTimeout(() => URL.revokeObjectURL(url), 5000);
-    avisar(`Listo: se descargó ${enlace.download} (${MB(blob.size)}).${leerYT(estado.youtube) && !musicaArchivo ? " La canción de YouTube solo suena en los enlaces; para el archivo sube un MP3." : ""}`);
+    avisar(txt("descarga_ok", { archivo: enlace.download, peso: MB(blob.size) }) + (leerYT(estado.youtube) && !musicaArchivo ? txt("descarga_yt") : ""));
   });
 
   /* ----- Crear enlace ----- */
@@ -1780,13 +1984,13 @@ function iniciarEditor(){
 
   const bEnlace = $("b-enlace");
   bEnlace.addEventListener("click", async () => {
-    if (location.protocol === "file:"){ avisar("Para crear enlaces, abre la plantilla desde regala-flores-amarillas.pages.dev"); return; }
+    if (location.protocol === "file:"){ avisar(txt("err_enlace_local")); return; }
     if (!estado.para.trim() && !estado.fotoCentral && !estado.frases.some(tieneContenido)){
-      avisar("Escribe al menos para quién es, o sube una foto, antes de crear el enlace.");
+      avisar(txt("err_enlace_vacio"));
       irACampo($("f-para").closest(".grupo"));
       return;
     }
-    bEnlace.disabled = true; bEnlace.textContent = "Creando…";
+    bEnlace.disabled = true; bEnlace.textContent = txt("btn_creando");
     try {
       const fotos = {};
       if (estado.fotoCentral) fotos[0] = await reducirFoto(estado.fotoCentral);
@@ -1796,31 +2000,34 @@ function iniciarEditor(){
       try {
         r = await fetch("/api/regalos", {
           method: "POST", headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ de: estado.de, para: estado.para, youtube: v, fotos, frases: estado.frases.map(f => ({ texto: f.texto, mensaje: f.mensaje })) })
+          body: JSON.stringify({ idioma, de: estado.de, para: estado.para, youtube: v, fotos, frases: estado.frases.map(f => ({ texto: f.texto, mensaje: f.mensaje })) })
         });
-      } catch (e){ throw falla("No se pudo crear el enlace. Revisa tu conexión e inténtalo otra vez."); }
-      if (r.status === 429) throw falla("Creaste muchos enlaces seguidos. Espera un rato e inténtalo otra vez.");
-      if (r.status === 413) throw falla("Las fotos pesan demasiado. Prueba con menos fotos o con fotos más livianas.");
-      if (!r.ok || !(r.headers.get("Content-Type") || "").includes("json")) throw falla("No se pudo crear el enlace. Si abriste la plantilla desde tu PC, ábrela desde regala-flores-amarillas.pages.dev");
+      } catch (e){ throw falla(txt("err_enlace_red")); }
+      if (r.status === 429) throw falla(txt("err_enlace_muchos"));
+      if (r.status === 413) throw falla(txt("err_enlace_peso"));
+      if (!r.ok || !(r.headers.get("Content-Type") || "").includes("json")) throw falla(txt("err_enlace_local"));
       const { id, clave } = await r.json();
       guardarCreados([{ id, clave, para: estado.para.trim(), creado: Date.now() }, ...leerCreados()]);
       pintarCreados();
       mostrarListo(id);
-      if (!v && musicaArchivo) avisar("El MP3 no va en el enlace. Para que suene música, pega un enlace de YouTube y crea el enlace otra vez.");
+      if (!v && musicaArchivo) avisar(txt("aviso_mp3_enlace"));
     } catch (e){
-      avisar(e.paraMostrar ? e.message : "No se pudo crear el enlace. Inténtalo otra vez.");
+      avisar(e.paraMostrar ? e.message : txt("err_enlace_otro"));
     }
-    bEnlace.disabled = false; bEnlace.textContent = "Crear enlace";
+    bEnlace.disabled = false; bEnlace.textContent = txt("btn_enlace");
   });
 
   const listo = $("listo"), listoUrl = $("listo-url"), bCompartir = $("listo-compartir");
   let listoId = "";
-  bCompartir.textContent = navigator.share ? "Compartir" : "Enviar por WhatsApp";
+  bCompartir.textContent = txt(navigator.share ? "listo_compartir" : "listo_whatsapp");
+  function textoListo(){
+    const para = estado.para.trim();
+    $("listo-texto").textContent = txt("listo_texto", { a_para: para ? txt("listo_a_para", { para }) : "" });
+  }
   function mostrarListo(id){
     listoId = id;
     listoUrl.value = urlDe(id);
-    const para = estado.para.trim();
-    $("listo-texto").textContent = `Envíale este enlace${para ? " a " + para : ""}. Cualquier persona que tenga el enlace puede ver el jardín. Si cambias algo, crea un enlace nuevo.`;
+    textoListo();
     listo.classList.add("abierta"); listo.setAttribute("aria-hidden", "false");
     $("listo-copiar").focus({ preventScroll: true });
   }
@@ -1840,29 +2047,29 @@ function iniciarEditor(){
       ta.remove();
     }
     const antes = boton.textContent;
-    boton.textContent = ok ? "¡Copiado!" : "No se pudo copiar";
+    boton.textContent = txt(ok ? "listo_copiado" : "listo_no_copiado");
     setTimeout(() => { boton.textContent = antes; }, 1600);
   }
   $("listo-copiar").addEventListener("click", e => copiar(listoUrl.value, e.currentTarget));
   $("listo-abrir").addEventListener("click", () => window.open(listoUrl.value, "_blank", "noopener"));
   bCompartir.addEventListener("click", async () => {
-    const texto = "Te hice un jardín de flores amarillas 🌻";
-    if (navigator.share){ try { await navigator.share({ title: "Flores amarillas para ti", text: texto, url: listoUrl.value }); } catch (e){ /* cancelado */ } return; }
+    const texto = txt("compartir_texto");
+    if (navigator.share){ try { await navigator.share({ title: txt("compartir_titulo"), text: texto, url: listoUrl.value }); } catch (e){ /* cancelado */ } return; }
     window.open("https://wa.me/?text=" + encodeURIComponent(texto + " " + listoUrl.value), "_blank", "noopener");
   });
   $("listo-borrar").addEventListener("click", () => borrarCreado(listoId, true));
 
   async function borrarCreado(id, desdeListo){
     const item = leerCreados().find(x => x.id === id);
-    if (!item || !confirm("¿Borrar este jardín? El enlace dejará de funcionar.")) return;
+    if (!item || !confirm(txt("confirm_borrar"))) return;
     try {
       const r = await fetch("/api/regalos/" + id, { method: "DELETE", headers: { "X-Clave": item.clave } });
       if (!r.ok && r.status !== 404) throw new Error("borrar");
       guardarCreados(leerCreados().filter(x => x.id !== id));
       pintarCreados();
       if (desdeListo) cerrarListo();
-      avisar("Listo, ese jardín se borró.");
-    } catch (e){ avisar("No se pudo borrar. Revisa tu conexión e inténtalo otra vez."); }
+      avisar(txt("borrado_ok"));
+    } catch (e){ avisar(txt("err_borrar")); }
   }
 
   function pintarCreados(){
@@ -1873,29 +2080,55 @@ function iniciarEditor(){
       const li = document.createElement("li");
       const a = document.createElement("a");
       a.href = urlDe(x.id); a.target = "_blank"; a.rel = "noopener";
-      a.textContent = `${x.para ? "Para " + x.para : "Jardín"} · ${new Date(x.creado).toLocaleDateString("es", { day: "numeric", month: "short" })}`;
+      a.textContent = `${x.para ? txt("creados_item", { para: x.para }) : txt("creados_item_sin")} · ${new Date(x.creado).toLocaleDateString(idioma, { day: "numeric", month: "short" })}`;
       const bc = document.createElement("button");
-      bc.type = "button"; bc.className = "btn-texto"; bc.textContent = "Copiar";
+      bc.type = "button"; bc.className = "btn-texto"; bc.textContent = txt("creados_copiar");
       bc.addEventListener("click", () => copiar(urlDe(x.id), bc));
       const bb = document.createElement("button");
-      bb.type = "button"; bb.className = "btn-texto"; bb.textContent = "Borrar";
+      bb.type = "button"; bb.className = "btn-texto"; bb.textContent = txt("creados_borrar");
       bb.addEventListener("click", () => borrarCreado(x.id, false));
       li.append(a, bc, bb);
       ul.appendChild(li);
     });
   }
   pintarCreados();
+
+  // Al cambiar de idioma: se traducen las frases que nadie tocó y se repintan los textos del editor
+  refrescarEditor = () => {
+    const otro = idioma === "es" ? "en" : "es";
+    estado.frases.forEach((f, i) => {
+      if (f.texto.trim() === TEXTOS[otro].frases[i]) f.texto = TEXTOS[idioma].frases[i];
+      const fila = lista.children[i];
+      if (!fila) return;
+      const inp = fila.querySelector(".frase-texto"), ta = fila.querySelector(".frase-msg"), ff = fila.querySelector(".foto input");
+      inp.value = f.texto;
+      inp.setAttribute("aria-label", txt("aria_frase", { n: i + 1 }));
+      ta.placeholder = txt("pistas")[i] || txt("ph_mensaje");
+      ta.setAttribute("aria-label", txt("aria_mensaje", { n: i + 1 }));
+      if (ff) ff.setAttribute("aria-label", txt("aria_foto_frase", { n: i + 1 }));
+    });
+    const fc = $("foto-central").querySelector("input");
+    if (fc) fc.setAttribute("aria-label", txt("aria_foto_central"));
+    document.querySelectorAll(".foto-vacia").forEach(e => { e.innerHTML = txt("foto_subir"); });
+    document.querySelectorAll(".foto .btn-texto").forEach(e => { e.textContent = txt("foto_quitar"); });
+    $("etiqueta-musica").textContent = txt(musicaArchivo ? "mp3_cambiar" : "mp3_elegir");
+    bCompartir.textContent = txt(navigator.share ? "listo_compartir" : "listo_whatsapp");
+    clavePruebaYT = ""; pintarYT();
+    pintarCreados();
+    if (listoId) textoListo();
+    cambio();
+  };
 }
 
 /* ---------- Arranque ---------- */
 if (MODO === "editor") intro.classList.add("oculto");
-ponerIntro();
+aplicarIdioma();
 Promise.all([esperarFuentes(), datosListos]).then(() => {
   fuentesListas = true;
   crearPalabras();
   actualizarEscena();
   btnAbrir.disabled = false;
-  btnAbrir.textContent = "Abrir el jardín 🌼";
+  btnAbrir.textContent = txt("btn_abrir");
 }).catch(() => { /* el aviso ya se mostró */ });
 
 /* ---------- Animación ---------- */

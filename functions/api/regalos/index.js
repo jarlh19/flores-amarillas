@@ -32,7 +32,8 @@ export async function onRequestPost({ request, env }){
     if (reciente && reciente.n >= LIMITE_POR_HORA) return json({ error: "demasiados" }, 429);
 
     const id = idAleatorio(10), clave = idAleatorio(24);
-    const datos = JSON.stringify({ de: texto(b.de, 40), para: texto(b.para, 40), frases, youtube });
+    const idioma = b.idioma === "en" ? "en" : "es";
+    const datos = JSON.stringify({ idioma, de: texto(b.de, 40), para: texto(b.para, 40), frases, youtube });
     const sentencias = [
       env.DB.prepare("INSERT INTO regalos (id, datos, creado, ip, clave) VALUES (?, ?, ?, ?, ?)")
         .bind(id, datos, Date.now(), ip, await sha256(clave))

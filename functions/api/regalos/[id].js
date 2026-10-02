@@ -12,6 +12,7 @@ export async function onRequestGet({ params, env }){
     const foto = s => (results.find(r => r.slot === s) || {}).datos || "";
     const d = JSON.parse(fila.datos);
     return json({
+      idioma: d.idioma === "en" ? "en" : "es",
       de: d.de, para: d.para, youtube: d.youtube,
       fotoCentral: foto(0),
       frases: d.frases.map((f, i) => ({ ...f, foto: foto(i + 1) }))
