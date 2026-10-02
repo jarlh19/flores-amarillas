@@ -8,6 +8,13 @@ compartes como enlace o como un archivo HTML.
 
 **En vivo:** [regala-flores-amarillas.pages.dev](https://regala-flores-amarillas.pages.dev)
 
+<p align="center">
+  <img src="docs/screenshots/editor.jpg" width="49%" alt="Editor con vista previa 3D en vivo">
+  <img src="docs/screenshots/garden.jpg" width="49%" alt="El jardín terminado">
+</p>
+
+<p align="center"><sub>Editor con vista previa 3D en vivo · el jardín terminado</sub></p>
+
 `JavaScript` `three.js` `Cloudflare Pages` `Pages Functions` `D1 (SQLite)`
 
 ## Qué hace

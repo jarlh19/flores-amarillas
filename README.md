@@ -8,6 +8,13 @@ it as a link or as a standalone HTML file.
 
 **Live:** [regala-flores-amarillas.pages.dev](https://regala-flores-amarillas.pages.dev)
 
+<p align="center">
+  <img src="docs/screenshots/editor.jpg" width="49%" alt="Editor with live 3D preview">
+  <img src="docs/screenshots/garden.jpg" width="49%" alt="The finished garden">
+</p>
+
+<p align="center"><sub>Editor with live 3D preview · the finished garden</sub></p>
+
 `JavaScript` `three.js` `Cloudflare Pages` `Pages Functions` `D1 (SQLite)`
 
 ## What it does
