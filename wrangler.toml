@@ -1,0 +1,8 @@
+name = "regala-flores-amarillas"
+pages_build_output_dir = "./public"
+compatibility_date = "2026-09-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "regala-flores-amarillas"
+database_id = "153b4ddf-0a80-4e28-a8e2-7e42c06bf17d"
