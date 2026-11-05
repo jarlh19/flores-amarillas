@@ -1,7 +1,8 @@
 // POST /api/regalos: guarda un regalo y devuelve su id y la clave para borrarlo
-import { json, sha256, idAleatorio, texto } from "../../../lib/util.js";
+import { json, sha256, huella, idAleatorio, texto } from "../../../lib/util.js";
 
 const LIMITE_POR_HORA = 60;        // por IP; alto porque en el celular muchos comparten IP
+const UNA_HORA = 3_600_000;
 const MAX_CUERPO = 3_500_000;
 const MAX_FOTO = 450_000;          // caracteres del data URL (unos 330 KB de JPEG)
 const RE_FOTO = /^data:image\/(jpeg|png|webp);base64,/;
@@ -26,9 +27,15 @@ export async function onRequestPost({ request, env }){
       fotos.push({ slot: s, datos });
     }
 
-    const ip = await sha256("flores:" + (request.headers.get("CF-Connecting-IP") || ""));
+    // La IP solo sirve para el límite por hora: se guarda con el secreto
+    // IP_SECRETO (wrangler pages secret put IP_SECRETO) y se borra pasada la
+    // hora. Sin el secreto no se guarda nada: volver al hash simple sería
+    // guardar algo que se puede revertir.
+    if (!env.IP_SECRETO) return json({ error: "sin-configurar" }, 503);
+    const ahora = Date.now();
+    const ip = await huella(request.headers.get("CF-Connecting-IP") || "", env.IP_SECRETO);
     const reciente = await env.DB.prepare("SELECT COUNT(*) AS n FROM regalos WHERE ip = ? AND creado > ?")
-      .bind(ip, Date.now() - 3_600_000).first();
+      .bind(ip, ahora - UNA_HORA).first();
     if (reciente && reciente.n >= LIMITE_POR_HORA) return json({ error: "demasiados" }, 429);
 
     const id = idAleatorio(10), clave = idAleatorio(24);
@@ -36,7 +43,8 @@ export async function onRequestPost({ request, env }){
     const datos = JSON.stringify({ idioma, de: texto(b.de, 40), para: texto(b.para, 40), frases, youtube });
     const sentencias = [
       env.DB.prepare("INSERT INTO regalos (id, datos, creado, ip, clave) VALUES (?, ?, ?, ?, ?)")
-        .bind(id, datos, Date.now(), ip, await sha256(clave))
+        .bind(id, datos, ahora, ip, await sha256(clave)),
+      env.DB.prepare("UPDATE regalos SET ip = '' WHERE ip <> '' AND creado < ?").bind(ahora - UNA_HORA)
     ];
     for (const f of fotos){
       sentencias.push(env.DB.prepare("INSERT INTO fotos (regalo, slot, datos) VALUES (?, ?, ?)").bind(id, f.slot, f.datos));

@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS regalos (
   id     TEXT PRIMARY KEY,     -- lo que va en el enlace: /r/<id>
   datos  TEXT NOT NULL,        -- JSON con de, para, frases y youtube (sin fotos)
   creado INTEGER NOT NULL,     -- milisegundos
-  ip     TEXT NOT NULL,        -- hash de la IP, solo para limitar abusos
+  ip     TEXT NOT NULL,        -- HMAC de la IP con IP_SECRETO, solo para el límite por hora; '' pasada la hora
   clave  TEXT NOT NULL         -- hash de la clave para borrar el regalo
 );
 CREATE INDEX IF NOT EXISTS regalos_ip_creado ON regalos (ip, creado);
