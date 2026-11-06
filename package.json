@@ -8,6 +8,6 @@
     "db:remoto": "wrangler d1 execute regala-flores-amarillas --remote --file schema.sql"
   },
   "devDependencies": {
-    "wrangler": "4.136.0"
+    "wrangler": "4.156.2"
   }
 }
