@@ -1,9 +1,11 @@
 {
   "name": "regala-flores-amarillas",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "wrangler pages dev --port 5189",
-    "deploy": "wrangler pages deploy",
+    "test": "node --test \"test/**/*.test.mjs\"",
+    "deploy": "node scripts/cabeceras.mjs && wrangler pages deploy",
     "db:local": "wrangler d1 execute regala-flores-amarillas --local --file schema.sql",
     "db:remoto": "wrangler d1 execute regala-flores-amarillas --remote --file schema.sql"
   },

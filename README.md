@@ -53,9 +53,12 @@ Decisions worth noting:
 - **One row per photo.** D1 caps a row at 2 MB, so photos live in their own
   table (`fotos`) instead of inside the gift's JSON. Gift and photos are
   written in a single `batch`, so a gift is never saved half-way.
-- **Rate limit per hashed IP.** Each gift stores a SHA-256 of the client IP
-  (never the IP itself) and creation is capped at 60 per hour per IP. The limit
-  is high on purpose: on mobile networks many people share an IP.
+- **Rate limit per IP, kept for one hour.** Each gift stores an HMAC of the
+  client IP with a server secret (`IP_SECRETO`), never the IP itself, and
+  creation is capped at 60 per hour per IP. A plain SHA-256 of an IPv4 can be
+  reversed by trying them all; without the secret this cannot. The value is
+  cleared once the hour is over, since it is only needed for the limit. The
+  limit is high on purpose: on mobile networks many people share an IP.
 - **The delete key is stored hashed.** The server keeps only its SHA-256; the
   plain key exists only in the creator's browser.
 - **All input is trimmed and capped** server-side (names 40 chars, message
@@ -68,7 +71,9 @@ Decisions worth noting:
 ```bash
 npm install
 npm run db:local
+echo "IP_SECRETO=$(openssl rand -hex 32)" > .dev.vars   # once
 npm run dev
+npm test
 ```
 
 Opens at `http://localhost:5189`. `db:local` creates the D1 tables in
@@ -79,5 +84,6 @@ Wrangler's local SQLite.
 ```bash
 npx wrangler d1 create regala-flores-amarillas   # once; put the id in wrangler.toml
 npm run db:remoto
+npx wrangler pages secret put IP_SECRETO   # once, before the first deploy; a long random value
 npm run deploy
 ```

@@ -53,9 +53,12 @@ Decisiones que vale la pena mencionar:
 - **Una fila por foto.** D1 limita cada fila a 2 MB, así que las fotos van en
   su propia tabla (`fotos`) y no dentro del JSON del regalo. Regalo y fotos se
   escriben en un solo `batch`: nunca queda un regalo a medias.
-- **Límite por IP con hash.** Cada regalo guarda el SHA-256 de la IP (nunca la
-  IP) y se permiten 60 por hora por IP. Es alto a propósito: en datos móviles
-  mucha gente comparte IP.
+- **Límite por IP, guardada solo una hora.** Cada regalo guarda un HMAC de la
+  IP con un secreto del servidor (`IP_SECRETO`), nunca la IP, y se permiten 60
+  por hora por IP. El SHA-256 simple de una IPv4 se revierte probándolas
+  todas; sin el secreto, esto no. Pasada la hora se borra, porque solo sirve
+  para el límite. Es alto a propósito: en datos móviles mucha gente comparte
+  IP.
 - **La clave de borrado se guarda con hash.** El servidor solo tiene su
   SHA-256; la clave en claro existe únicamente en el navegador de quien lo creó.
 - **Toda entrada se recorta y se limita** en el servidor (nombres 40
@@ -70,7 +73,9 @@ Decisiones que vale la pena mencionar:
 ```bash
 npm install
 npm run db:local
+echo "IP_SECRETO=$(openssl rand -hex 32)" > .dev.vars   # una vez
 npm run dev
+npm test
 ```
 
 Abre en `http://localhost:5189`. `db:local` crea las tablas de D1 en el SQLite
@@ -81,5 +86,6 @@ local de Wrangler.
 ```bash
 npx wrangler d1 create regala-flores-amarillas   # una vez; el id va en wrangler.toml
 npm run db:remoto
+npx wrangler pages secret put IP_SECRETO   # una vez, antes de publicar; un valor largo y aleatorio
 npm run deploy
 ```
