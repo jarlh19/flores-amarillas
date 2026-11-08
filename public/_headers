@@ -1,6 +1,6 @@
 # Generado por scripts/cabeceras.mjs. No editar a mano: se regenera al publicar.
 /*
-  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'sha256-dgsBvjmzMycb7DBe6lRVYGTPas8Qgge4U/Pme2nqJCE=' 'sha256-eu0KVOS3Hz7MSXgOsIcc6QJeUaOvkOIb0ZYGgpYwXXw=' 'sha256-56as6JIXFxbI2BFNSvvD0uHEau1WdnQXhaCEVbYQV+0=' https://cdn.jsdelivr.net/npm/three@0.148.0/ https://www.youtube.com https://s.ytimg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob: https://i.ytimg.com; media-src 'self' data: blob:; frame-src https://www.youtube-nocookie.com https://www.youtube.com; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-dgsBvjmzMycb7DBe6lRVYGTPas8Qgge4U/Pme2nqJCE=' 'sha256-eu0KVOS3Hz7MSXgOsIcc6QJeUaOvkOIb0ZYGgpYwXXw=' 'sha256-56as6JIXFxbI2BFNSvvD0uHEau1WdnQXhaCEVbYQV+0=' https://cdn.jsdelivr.net/npm/three@0.148.0/ https://www.youtube.com https://s.ytimg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob: https://i.ytimg.com; media-src 'self' data: blob:; frame-src https://www.youtube-nocookie.com https://www.youtube.com; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Strict-Transport-Security: max-age=31536000

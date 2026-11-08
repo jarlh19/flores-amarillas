@@ -57,3 +57,12 @@ test("publicar regenera las cabeceras antes de subir", () => {
   const p = JSON.parse(readFileSync(new URL("../package.json", import.meta.url), "utf8"));
   assert.match(p.scripts.deploy, /cabeceras\.mjs.*&&.*wrangler pages deploy/);
 });
+
+// Una vez aplicada, la política no puede volver sola a "solo reportar": el
+// script de publicación regenera public/_headers, así que tiene que pedir la
+// versión aplicada cada vez que el archivo ya la trae.
+test("publicar no devuelve la política a solo reportar", () => {
+  const paquete = JSON.parse(readFileSync(new URL("../package.json", import.meta.url), "utf8"));
+  const aplicada = /^\s*Content-Security-Policy:/m.test(cabeceras);
+  if (aplicada) assert.match(paquete.scripts.deploy, /cabeceras\.mjs --aplicar/);
+});
